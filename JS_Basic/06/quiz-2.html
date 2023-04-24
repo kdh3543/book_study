@@ -1,17 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Circle 객체</title>
-	<style>
-		body { text-align: center; font-size:1.2em; line-height: 2em;}
-	</style>
-</head>
-<body>
-	<script>
-		var r = prompt("원의 반지름은? (cm)");
-	
-	</script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Circle 객체</title>
+    <style>
+      body {
+        text-align: center;
+        font-size: 1.2em;
+        line-height: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      function Circle(r) {
+        this.r = r
+        this.length = function () {
+          return Math.floor(2 * this.r * Math.PI)
+        }
+        this.area = function () {
+          return Math.floor(this.r ** 2 * Math.PI)
+        }
+      }
+      var r = prompt('원의 반지름은? (cm)')
+      let circle = new Circle(r)
+      document.write(
+        `반지름이 ${r}cm일 때 <br/> 원의 둘레: 약 ${circle.length()}cm<br/> 원의 넓이: 약 ${circle.area()}cm<sup>2</sup>`
+      )
+    </script>
+  </body>
 </html>
