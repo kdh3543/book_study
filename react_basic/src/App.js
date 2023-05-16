@@ -29,7 +29,10 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      mode: 'read',
+      selected_id: 2,
       subject: { title: 'WEB', sub: 'World Wide Web!' },
+      welcome: { title: 'Welcome', desc: 'Hello, React!' },
       contents: [
         {
           id: 1,
@@ -42,13 +45,42 @@ class App extends Component {
     }
   }
   render() {
+    console.log('App render')
+    var _title,
+      _desc = null
+    if (this.state.mode === 'welcome') {
+      _title = this.state.welcome.title
+      _desc = this.state.welcome.desc
+    } else if ((this.state.mode = 'read')) {
+      let i = 0
+      while (i < this.state.contents.length) {
+        let data = this.state.contents[i]
+        if (data.id === this.state.selected_id) {
+          _title = data.title
+          _desc = data.desc
+          break
+        }
+        i = i + 1
+      }
+    }
+    console.log('render', this)
     return (
       <div className="App">
         <Subject
           title={this.state.subject.title}
           sub={this.state.subject.sub}
+          onChangePage={function () {
+            this.setState({ mode: 'welcome' })
+          }.bind(this)}
         />
-        <TOC data={this.state.contents} />
+        <TOC
+          data={this.state.contents}
+          onChangePage={function (id) {
+            debugger
+            this.setState({ mode: 'read', selected_id: Number(id) })
+          }.bind(this)}
+        />
+        <Content title={_title} desc={_desc} />
       </div>
     )
   }
