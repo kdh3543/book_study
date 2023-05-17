@@ -1,17 +1,16 @@
 import { Component, useState } from 'react'
 
 function TOC(props) {
-  const [lists, setLists] = useState([])
   let data = props.data
-  let temp = []
+  let lists = []
   for (let i = 0; i < data.length; i++) {
-    temp.push(
-      <li>
+    lists.push(
+      <li key={data[i].id}>
         <a href={`/content/` + data[i].id}>{data[i].title}</a>
       </li>
     )
   }
-  setLists(temp)
+
   return (
     <nav>
       <ul>{lists}</ul>
