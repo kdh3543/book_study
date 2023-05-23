@@ -1,10 +1,11 @@
 import './App.css'
-import React, { Component, useState } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import TOC from './components/TOC'
 import ReadContent from './components/ReadContent'
 import Subject from './components/Subject'
 import Control from './components/Control'
 import CreateContent from './components/CreateContent'
+import UpdateContent from './components/UpdateContent'
 
 function App(props) {
   const [mode, setMode] = useState('read')
@@ -26,33 +27,73 @@ function App(props) {
     { id: 2, title: 'CSS', desc: 'CSS is for design' },
     { id: 3, title: 'JS', desc: 'JS is for interactive' },
   ])
-  let _title,
-    _desc = null,
-    _article = null
-  if (mode === 'welcome') {
-    _article = (
-      <ReadContent title={welcome.title} desc={welcome.desc}></ReadContent>
-    )
-  } else if (mode === 'read') {
+  const [max_content_id, setMax_content_id] = useState(3)
+
+  const getContent = () => {
+    let _title,
+      _desc = null,
+      _article = null
+    if (mode === 'welcome') {
+      _article = (
+        <ReadContent title={welcome.title} desc={welcome.desc}></ReadContent>
+      )
+    } else if (mode === 'read') {
+      var _content = getReadContent()
+      _article = <ReadContent title={_content.title} desc={_content.desc} />
+      // let i = 0
+      // while (i < contents.length) {
+      //   let data = contents[i]
+      //   if (data.id === selected_id) {
+      //     _title = data.title
+      //     _desc = data.desc
+      //     break
+      //   }
+      //   i = i + 1
+      // }
+      // _article = <ReadContent title={_title} desc={_desc}></ReadContent>
+    } else if (mode === 'create') {
+      _article = (
+        <CreateContent
+          onSubmit={function (_title, _desc) {
+            console.log(_title, _desc, contents)
+            setMax_content_id(max_content_id + 1)
+            setContents([
+              ...contents,
+              {
+                id: max_content_id,
+                title: _title,
+                desc: _desc,
+              },
+            ])
+          }}
+        />
+      )
+    } else if (mode === 'update') {
+      _article = (
+        <UpdateContent
+          data={_content}
+          onSubmit={function (_title, _desc) {
+            setMax_content_id(max_content_id + 1)
+            setContents([
+              ...contents,
+              { id: max_content_id, title: _title, desc: _desc },
+            ])
+          }}
+        />
+      )
+    }
+    return _article
+  }
+
+  const getReadContent = () => {
     let i = 0
     while (i < contents.length) {
       let data = contents[i]
       if (data.id === selected_id) {
-        _title = data.title
-        _desc = data.desc
-        break
+        return data
       }
-      i = i + 1
+      i++
     }
-    _article = <ReadContent title={_title} desc={_desc}></ReadContent>
-  } else if (mode === 'create') {
-    _article = (
-      <CreateContent
-        onSubmit={function (_title, _desc) {
-          console.log(_title, _desc)
-        }}
-      ></CreateContent>
-    )
   }
 
   return (
@@ -76,7 +117,7 @@ function App(props) {
           setMode(_mode)
         }}
       />
-      {_article}
+      {getContent()}
     </div>
   )
 }
