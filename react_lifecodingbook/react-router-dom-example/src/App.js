@@ -1,6 +1,6 @@
 import logo from './logo.svg'
 import './App.css'
-import { Route, Routes, Link } from 'react-router-dom'
+import { Route, Routes, Link, NavLink, useParams } from 'react-router-dom'
 
 function Home() {
   return (
@@ -11,10 +11,42 @@ function Home() {
   )
 }
 
+function Topic() {
+  let params = useParams()
+  console.log(params)
+  return (
+    <div>
+      <h3>Topic</h3>
+      Topic...
+    </div>
+  )
+}
+
+let contents = [
+  {
+    id: 1,
+    title: 'HTML',
+    description: 'HTML is...',
+  },
+  { id: 2, title: 'JS', description: 'JS is...' },
+  { id: 3, title: 'React', description: 'React is...' },
+]
 function Topics() {
+  let lis = []
+  for (let i = 0; i < contents.length; i++) {
+    lis.push(
+      <li key={contents[i].id}>
+        <NavLink to={'/topics/' + contents[i].id}>{contents[i].title}</NavLink>
+      </li>
+    )
+  }
   return (
     <div>
       <h2>Topics</h2>
+      <ul>{lis}</ul>
+      <Routes>
+        <Route path="/topics/:topic_id" element={<Topic />}></Route>
+      </Routes>
       Topics...
     </div>
   )
@@ -35,13 +67,13 @@ function App() {
       <h1>Hello React Router DOM</h1>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <Link to="/topics">Topics</Link>
+          <NavLink to="/topics">Topics</NavLink>
         </li>
         <li>
-          <a href="/contact">Contact</a>
+          <NavLink to="/contact">Contact</NavLink>
         </li>
       </ul>
       <Routes>
