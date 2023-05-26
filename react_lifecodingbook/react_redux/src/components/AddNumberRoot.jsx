@@ -5,9 +5,9 @@ export default function AddNumberRoot(props) {
     <div>
       <h1>Add Number Root</h1>
       <AddNumber
-        onClick={function (size) {
-          props.onClick(size)
-        }}
+      // onClick={function (size) {
+      //   props.onClick(size)
+      // }}
       />
     </div>
   )

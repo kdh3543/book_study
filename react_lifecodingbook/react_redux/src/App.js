@@ -9,11 +9,13 @@ function App(props) {
     <div className="App">
       <h1>Root</h1>
       <AddNumberRoot
-        onClick={function (size) {
-          setNumber(number + size)
-        }}
+      // onClick={function (size) {
+      //   setNumber(number + size)
+      // }}
       />
-      <DisplayNumberRoot number={number} />
+      <DisplayNumberRoot
+      // number={number}
+      />
     </div>
   )
 }
