@@ -1,12 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
 import { Component } from 'react';
 import MyComponent from './MyComponent';
 
 class App extends Component {
   render() {
     const name = 'react';
-    return <MyComponent />;
+    return <MyComponent favoriteNumber={1}>리액트</MyComponent>;
   }
 }
 
