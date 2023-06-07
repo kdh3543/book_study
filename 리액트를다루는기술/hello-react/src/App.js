@@ -1,10 +1,15 @@
 import { Component } from 'react';
-import MyComponent from './MyComponent';
-
+import Counter from './Counter';
+import Say from './Say';
 class App extends Component {
   render() {
     const name = 'react';
-    return <MyComponent favoriteNumber={1}>리액트</MyComponent>;
+    return (
+      <>
+        <Say />
+        <Counter />
+      </>
+    );
   }
 }
 
