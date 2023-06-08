@@ -2,10 +2,17 @@ import { Component } from 'react';
 import Counter from './Counter';
 import Say from './Say';
 import EventPractice from './EventPractice';
+import ValidationSample from './ValidationSample';
 
-const App = () => {
-  return <EventPractice />;
-};
+class App extends Component {
+  render() {
+    return <ValidationSample />;
+  }
+}
+
+// const App = () => {
+//   return <EventPractice />;
+// };
 
 // class App extends Component {
 //   render() {
