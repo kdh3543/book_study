@@ -1,27 +1,33 @@
 import { useEffect, useState } from 'react'
+import useInputs from './useInputs'
 
 const Info = () => {
-  const [name, setName] = useState('')
-  const [nickname, setNickname] = useState('')
+  // const [name, setName] = useState('')
+  // const [nickname, setNickname] = useState('')
 
-  const onChangeName = (e) => {
-    setName(e.target.value)
-  }
+  // const onChangeName = (e) => {
+  //   setName(e.target.value)
+  // }
 
-  const onChangeNickname = (e) => {
-    setNickname(e.target.value)
-  }
+  // const onChangeNickname = (e) => {
+  //   setNickname(e.target.value)
+  // }
 
-  useEffect(() => {
-    console.log('렌더링 완료')
-    console.log(name, nickname)
-  }, [])
+  // useEffect(() => {
+  //   console.log('렌더링 완료')
+  //   console.log(name, nickname)
+  // }, [])
+  const [state, onChange] = useInputs({
+    name: '',
+    nickname: '',
+  })
+  const { name, nickname } = state
 
   return (
     <div>
       <div>
-        <input value={name} onChange={onChangeName} />
-        <input value={nickname} onChange={onChangeNickname} />
+        <input value={name} onChange={onChange} />
+        <input value={nickname} onChange={onChange} />
       </div>
       <div>
         <div>
