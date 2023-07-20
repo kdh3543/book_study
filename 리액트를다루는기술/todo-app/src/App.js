@@ -16,6 +16,7 @@ function App() {
   const nextId = useRef(4);
 
   // onInsert는 컴포넌트의 성능을 아끼기 위해 useCallback으로 감싸줌
+  // props로 전달할 함수는 useCallback을 사용하여 함수를 감싸주는게 좋음
   const onInsert = useCallback(
     (text) => {
       const todo = {
@@ -28,10 +29,28 @@ function App() {
     },
     [todos],
   );
+
+  const onRemove = useCallback(
+    (id) => {
+      setTodos(todos.filter((todo) => todo.id !== id));
+    },
+    [todos],
+  );
+
+  const onToggle = useCallback(
+    (id) => {
+      setTodos(
+        todos.map((todo) =>
+          todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+        ),
+      );
+    },
+    [todos],
+  );
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsert} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
     </TodoTemplate>
   );
 }
